@@ -14,9 +14,8 @@ struct ContentView: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest(entity: Order.entity(), sortDescriptors: [])
-    //,
-//                  predicate: NSPredicate(format: "status != %@", Status.completed.rawValue))
+    @FetchRequest(entity: Order.entity(), sortDescriptors: [],
+    predicate: NSPredicate(format: "status != %@", Status.completed.rawValue))
     
     var orders: FetchedResults<Order>
     
@@ -61,16 +60,13 @@ struct ContentView: View {
         }
     }
     func updateOrder(order: Order) {
-        let newStatus = order.orderStatus
-            //== .pending ? Status.preparing : .completed
+        let newStatus = order.orderStatus == .pending ? Status.preparing : .completed
         self.managedObjectContext.performAndWait {
             order.orderStatus = newStatus
             try? managedObjectContext.save()
         }
     }
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

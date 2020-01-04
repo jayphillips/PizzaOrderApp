@@ -12,12 +12,6 @@ import CoreData
 
 
 extension Order: Identifiable {
-    
-    enum Status: String {
-        case pending = "Pending"
-        case preparing = "Preparing"
-        case completed = "Completed"
-    }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Order> {
         return NSFetchRequest<Order>(entityName: "Order")
@@ -34,5 +28,12 @@ extension Order: Identifiable {
         get {Status(rawValue: status) ?? .pending}
         
     }
+    
 
+}
+
+enum Status: String {
+    case pending = "Pending"
+    case preparing = "Preparing"
+    case completed = "Completed"
 }
